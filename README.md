@@ -121,7 +121,7 @@ Full tables: Hugging Face model card / paper PDFs under `paper/`.
 ## 📁 Repository layout
 
 ```
-SRUM-ECCV2026/
+SRUM/
 ├── README.md
 ├── requirements.txt
 ├── Bagel/                 # BAGEL inference & training stack (upstream-compatible)
