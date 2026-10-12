@@ -139,11 +139,12 @@ SRUM/
 
 ```bibtex
 @inproceedings{jin2026srum,
-  title     = {SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models},
-  author    = {Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi
-               and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year      = {2026}
+  title={Srum: Fine-grained self-rewarding for unified multimodal models},
+  author={Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
+  booktitle={European Conference on Computer Vision},
+  pages={675--691},
+  year={2026},
+  organization={Springer}
 }
 ```
 
