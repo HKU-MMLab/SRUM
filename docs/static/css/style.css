@@ -342,8 +342,9 @@ section > h2::after {
 }
 .charts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.7rem;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  justify-content: center;
+  gap: 0.7rem 1.2rem;
   margin-top: 0.5rem;
   align-items: start;
 }
@@ -354,6 +355,8 @@ section > h2::after {
   border-radius: 8px;
   box-shadow: none;
 }
+.figure.chart.wide { grid-column: 1 / -1; }
+.figure.chart.wide img { max-width: 420px; }
 .figure.chart figcaption { font-size: 0.72rem; }
 .figure figcaption {
   margin-top: 0.5rem;
@@ -555,8 +558,9 @@ code {
 @media (max-width: 900px) {
   .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-2, .grid-3, .ba-grid, .recipe, .hero-grid { grid-template-columns: 1fr; }
-  .charts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .figure.chart img { max-width: 100%; }
+  .charts { grid-template-columns: minmax(0, 220px); }
+  .figure.chart.wide { grid-column: auto; }
+  .figure.chart img, .figure.chart.wide img { max-width: 100%; }
   .hero-oil-still { height: 240px; }
   .brand-bar { flex-direction: column; align-items: flex-start; }
 }
