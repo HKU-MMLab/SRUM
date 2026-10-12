@@ -23,7 +23,7 @@ Shenghua Gao &nbsp;
   <a href="https://arxiv.org/abs/2510.12784"><img src="https://img.shields.io/badge/Paper-arXiv-A42C25?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
   <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT"><img src="https://img.shields.io/badge/Model-HuggingFace-fcd022?style=for-the-badge&logo=huggingface&logoColor=000" alt="Model"></a>
   <a href="https://github.com/HKU-MMLab/SRUM"><img src="https://img.shields.io/badge/Code-SRUM-C43B3F?style=for-the-badge" alt="Code"></a>
-  <a href="docs/index.html"><img src="https://img.shields.io/badge/Project-Page-9E2B2F?style=for-the-badge" alt="Project"></a>
+  <a href="https://hku-mmlab.github.io/SRUM/"><img src="https://img.shields.io/badge/Project-Page-9E2B2F?style=for-the-badge" alt="Project"></a>
   <a href="docs/evaluate.md"><img src="https://img.shields.io/badge/Guide-evaluate-C4922E?style=for-the-badge" alt="Evaluate"></a>
 </p>
 
@@ -36,6 +36,10 @@ Shenghua Gao &nbsp;
 </p>
 <p align="center">
   <em>SRUM uses a UMM's own understanding module to reward its generation module — no extra human labels.</em>
+</p>
+
+<p align="center">
+  <b>Project page:</b> <a href="https://hku-mmlab.github.io/SRUM/">https://hku-mmlab.github.io/SRUM/</a>
 </p>
 
 <p align="center">
