@@ -31,7 +31,7 @@ This repository is the **ECCV 2026** reconstruction of SRUM: BAGEL-based inferen
 
 ## 🔥 News
 
-- **2026-10**: Reorganized private release under `HKU-MMLab/SRUM-ECCV2026`.
+- **2026-10**: Reorganized private release under `HKU-MMLab/SRUM`.
 - **2025-11**: Model & report released on Hugging Face (`Wayne-King/SRUM_BAGEL_7B_MoT`).
 
 ## 🔧 Quick Start
@@ -39,8 +39,8 @@ This repository is the **ECCV 2026** reconstruction of SRUM: BAGEL-based inferen
 ### 1. Environment
 
 ```bash
-git clone https://github.com/HKU-MMLab/SRUM-ECCV2026.git
-cd SRUM-ECCV2026
+git clone https://github.com/HKU-MMLab/SRUM.git
+cd SRUM
 pip install -r requirements.txt
 # Optional: follow Bagel flash-attn install notes in Bagel/README.md
 ```
@@ -135,7 +135,7 @@ SRUM-ECCV2026/
 ## 📄 Paper
 
 - arXiv: https://arxiv.org/abs/2510.12784
-- Local PDFs (also on [GitHub Release v0.1.0](https://github.com/HKU-MMLab/SRUM-ECCV2026/releases/tag/v0.1.0)): `paper/SRUM_ECCV2026_main.pdf`, `paper/SRUM_ECCV2026_supp.pdf`
+- Local PDFs (also on [GitHub Release v0.1.0](https://github.com/HKU-MMLab/SRUM/releases/tag/v0.1.0)): `paper/SRUM_ECCV2026_main.pdf`, `paper/SRUM_ECCV2026_supp.pdf`
 - Rebuttal notes: [`paper/rebuttal.tex`](./paper/rebuttal.tex)
 
 ## ✍️ Citation
