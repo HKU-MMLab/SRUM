@@ -1,158 +1,156 @@
-<p align="center">
-  <h1 align="center">SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models</h1>
-  <p align="center"><b>ECCV 2026</b></p>
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://arxiv.org/abs/2510.12784"><img src="https://img.shields.io/badge/Paper-arXiv-A42C25?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT"><img src="https://img.shields.io/badge/Model-HuggingFace-fcd022?style=for-the-badge&logo=huggingface&logoColor=000" alt="Model"></a>
-  <a href="./docs/index.html"><img src="https://img.shields.io/badge/Project-Page-00CED1?style=for-the-badge" alt="Project"></a>
-</p>
+# SRUM
 
-<p align="center">
-  <b>Weiyang Jin*</b>, <b>Yuwei Niu*</b>, Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao, <b>Xihui Liu</b><br/>
-  The University of Hong Kong &nbsp;·&nbsp; contact: <a href="mailto:xihuiliu@hku.hk">xihuiliu@hku.hk</a>
-</p>
+### Fine-Grained Self-Rewarding for Unified Multimodal Models
+
+**ECCV 2026**
+
+[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2510.12784)
+[![Model](https://img.shields.io/badge/Model-Hugging%20Face-ffcc4d?logo=huggingface&logoColor=black)](https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT)
+[![Project](https://img.shields.io/badge/Project-Page-0f6e56)](./docs/index.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](./LICENSE)
+
+**Weiyang Jin\*** · **Yuwei Niu\*** · Jiaqi Liao · Chengqi Duan · Aoxue Li · Shenghua Gao · **Xihui Liu**
+
+The University of Hong Kong  
+Contact: [xihuiliu@hku.hk](mailto:xihuiliu@hku.hk)
+
+</div>
 
 ---
 
-## Overview
+## Highlights
 
-**SRUM** is a self-rewarding post-training framework for Unified Multimodal Models (UMMs). It closes the gap where a model’s strong **understanding** fails to transfer to **generation**, by using the model’s own understanding module as an internal evaluator that rewards the generation module — **without extra human labels**.
+SRUM turns a unified multimodal model’s **understanding** module into an internal rewarder for its **generation** module — no extra human labels.
 
-A **global–local dual reward** provides multi-scale guidance:
+- **Self-rewarding post-training** for UMMs (BAGEL and beyond)
+- **Global–local dual rewards** for layout semantics and object-level fidelity
+- Strong gains on composition & reasoning T2I benchmarks
 
-- **Global reward** — overall visual semantics and layout
-- **Local reward** — fine-grained, object-level fidelity
+| Benchmark | Base | +SRUM |
+|-----------|------|-------|
+| T2I-CompBench (overall) | 82.18 | **88.37** |
+| T2I-ReasonBench (avg.) | 43.82 | **46.75** |
 
-On BAGEL, SRUM boosts **T2I-CompBench** from **82.18 → 88.37** and **T2I-ReasonBench** from **43.82 → 46.75**.
+## News
 
-This repository is the **ECCV 2026** reconstruction of SRUM: BAGEL-based inference/training code, self-rewarding modules, paper PDFs, and a project page.
+- **2026-10** — Code release under [`HKU-MMLab/SRUM`](https://github.com/HKU-MMLab/SRUM).
+- **2025-11** — Model & report on Hugging Face: [`Wayne-King/SRUM_BAGEL_7B_MoT`](https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT).
 
-## 🔥 News
-
-- **2026-10**: Reorganized private release under `HKU-MMLab/SRUM`.
-- **2025-11**: Model & report released on Hugging Face (`Wayne-King/SRUM_BAGEL_7B_MoT`).
-
-## 🔧 Quick Start
-
-### 1. Environment
+## Quick Start
 
 ```bash
 git clone https://github.com/HKU-MMLab/SRUM.git
 cd SRUM
 pip install -r requirements.txt
-# Optional: follow Bagel flash-attn install notes in Bagel/README.md
 ```
 
-### 2. Download checkpoints
+Download checkpoints:
 
 ```bash
-# Base BAGEL
-python scripts/download_ckpt.py --repo ByteDance-Seed/BAGEL-7B-MoT --out models/BAGEL-7B-MoT
+# base BAGEL
+python scripts/download_ckpt.py \
+  --repo ByteDance-Seed/BAGEL-7B-MoT \
+  --out models/BAGEL-7B-MoT
 
 # SRUM-tuned BAGEL
-python scripts/download_ckpt.py --repo Wayne-King/SRUM_BAGEL_7B_MoT --out models/SRUM_BAGEL_7B_MoT
+python scripts/download_ckpt.py \
+  --repo Wayne-King/SRUM_BAGEL_7B_MoT \
+  --out models/SRUM_BAGEL_7B_MoT
 ```
 
-### 3. Inference
-
-Use the BAGEL inferencer with the SRUM checkpoint (same interface as BAGEL):
+Inference uses the BAGEL interface — point the model path to `models/SRUM_BAGEL_7B_MoT`:
 
 ```bash
 cd Bagel
-# see inference.ipynb / app.py — point model path to ../models/SRUM_BAGEL_7B_MoT
+# app.py / inference.ipynb / inferencer.py
 ```
 
-### Inference hyperparameters (from BAGEL / SRUM HF card)
+<details>
+<summary><b>Inference hyperparameters</b></summary>
 
 | Param | Role | Typical |
 |-------|------|---------|
-| `cfg_text_scale` | Text guidance | `4.0–8.0` (`1.0` = off) |
+| `cfg_text_scale` | Text guidance (`1.0` = off) | `4.0–8.0` |
 | `cfg_image_scale` | Image preservation | `1.0–2.0` |
 | `cfg_interval` | Denoising fraction with CFG | `[0.4, 1.0]` |
-| `timestep_shift` | Step schedule (layout vs detail) | — |
+| `timestep_shift` | Early layout vs late detail | — |
 | `num_timesteps` | Denoising steps | `50` |
-| `cfg_renorm_type` | `global` / `channel` / `text_channel` | `global` for T2I |
+| `cfg_renorm_type` | `global` / `channel` / `text_channel` | `global` (T2I) |
 
-## 🧠 Method (self-rewarding)
+</details>
 
-Offline recipe (see paper + `paper/rebuttal.tex`):
+## Method
 
-1. Sample candidates from the base UMM (~6K in the paper setting).
-2. Freeze the understanding side as evaluator (**no evaluator gradients**).
-3. Score each candidate with **global** layout score \(\alpha\) and **local** region map \(R\).
-4. Optimize generation / flow parameters with
+Offline self-rewarding (paper setting):
+
+1. Sample candidates from the base UMM (~6K).
+2. Freeze the understanding module as evaluator (**no evaluator gradients**).
+3. Score with global layout weight \(\alpha\) and local region map \(R\).
+4. Update generation / flow parameters with
 
 \[
-L = L_r + \lambda_c L_{\mathrm{ref}},\quad \lambda_c=0.5
+L = L_r + \lambda_c L_{\mathrm{ref}}, \qquad \lambda_c = 0.5
 \]
 
-where \(L_r\) is the reward-weighted flow matching loss and \(L_{\mathrm{ref}}\) is the reference constraint (not an extra KL term).
+Defaults: AdamW, lr \(2.5\times 10^{-5}\), warmup 500, grad clip 1.0.
 
-Training defaults used in the paper response: AdamW, lr \(2.5\times10^{-5}\), warmup 500, grad clip 1.0.
+| Module | Path |
+|--------|------|
+| Scoring prompts | `srum/prompts.py` |
+| Dual-reward helpers | `srum/rewards.py` |
+| Training skeleton | `srum/train_srum.py` |
+| BAGEL stack | `Bagel/` |
 
-Code entry points:
+## Results
 
-- `srum/prompts.py` — global / local scoring prompts
-- `srum/rewards.py` — reward aggregation helpers
-- `srum/train_srum.py` — offline self-reward training skeleton on top of Bagel
+**Composition (T2I-CompBench overall)**
 
-## 🍭 Results
-
-### Composition (T2I-CompBench overall)
-
-| Unified model | Overall |
-|---------------|---------|
+| Model | Overall |
+|-------|---------|
 | Bagel | 82.18 |
 | Bagel (CoT) | 84.46 |
-| **Bagel+SRUM (CoT)** | **88.37** |
+| **Bagel + SRUM (CoT)** | **88.37** |
 
-### Reasoning-informed (T2I-ReasonBench)
+**Reasoning-informed (T2I-ReasonBench)**
 
 | Model | Average |
 |-------|---------|
 | Bagel | 43.82 |
-| Bagel+SFT | 45.37 |
-| **Bagel+SRUM** | **46.75** |
+| Bagel + SFT | 45.37 |
+| **Bagel + SRUM** | **46.75** |
 
-Full tables: Hugging Face model card / paper PDFs under `paper/`.
+Full tables: [Hugging Face model card](https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT) · [arXiv](https://arxiv.org/abs/2510.12784)
 
-## 📁 Repository layout
+## Repository
 
-```
+```text
 SRUM/
-├── README.md
-├── requirements.txt
-├── Bagel/                 # BAGEL inference & training stack (upstream-compatible)
-├── srum/                  # SRUM self-rewarding modules
-├── scripts/               # download / demo helpers
-├── docs/                  # project homepage
-├── paper/                 # ECCV PDFs + rebuttal notes
-└── assets/
+├── Bagel/          # inference & training (BAGEL-compatible)
+├── srum/           # self-rewarding modules
+├── scripts/        # checkpoint download helpers
+├── docs/           # project page
+├── assets/
+└── citation.bib
 ```
 
-## 📄 Paper
-
-- arXiv: https://arxiv.org/abs/2510.12784
-- Local PDFs (also on [GitHub Release v0.1.0](https://github.com/HKU-MMLab/SRUM/releases/tag/v0.1.0)): `paper/SRUM_ECCV2026_main.pdf`, `paper/SRUM_ECCV2026_supp.pdf`
-- Rebuttal notes: [`paper/rebuttal.tex`](./paper/rebuttal.tex)
-
-## ✍️ Citation
+## Citation
 
 ```bibtex
 @inproceedings{jin2026srum,
   title     = {SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models},
-  author    = {Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
+  author    = {Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi
+               and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
   booktitle = {European Conference on Computer Vision (ECCV)},
   year      = {2026}
 }
 ```
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Built on **[BAGEL](https://github.com/ByteDance-Seed/Bagel)**. Project page style inspired by **[RecA](https://github.com/horizonwind2004/reconstruction-alignment)**.
+Built on [BAGEL](https://github.com/ByteDance-Seed/Bagel). Project page inspired by [RecA](https://github.com/horizonwind2004/reconstruction-alignment).
 
-## 📜 License
+## License
 
-Apache 2.0 (see `LICENSE`). BAGEL components follow their upstream license terms.
+Apache 2.0. BAGEL components follow their upstream terms.

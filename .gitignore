@@ -8,17 +8,14 @@ venv/
 .cache/
 models/
 outputs/
-data/*.parquet
-data/candidates.jsonl
-data/reward_cache.jsonl
+wandb/
+lightning_logs/
 *.safetensors
 *.bin
 *.pt
 *.pth
-wandb/
-lightning_logs/
+data/candidates.jsonl
+data/reward_cache.jsonl
 Bagel/**/__pycache__/
-
-# Large PDFs uploaded separately / see arXiv
-paper/SRUM_ECCV2026_main.pdf
-paper/SRUM_ECCV2026_supp.pdf
+paper/
+*.pdf
