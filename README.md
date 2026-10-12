@@ -19,11 +19,16 @@ Shenghua Gao &nbsp;
 <p align="center"><b>ECCV 2026</b></p>
 
 <p align="center">
+  <a href="https://github.com/HKU-MMLab"><img src="https://img.shields.io/badge/HKU-MMLab-C43B3F?style=for-the-badge" alt="HKU MMLab"></a>
   <a href="https://arxiv.org/abs/2510.12784"><img src="https://img.shields.io/badge/Paper-arXiv-A42C25?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
   <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT"><img src="https://img.shields.io/badge/Model-HuggingFace-fcd022?style=for-the-badge&logo=huggingface&logoColor=000" alt="Model"></a>
-  <a href="https://github.com/HKU-MMLab/SRUM"><img src="https://img.shields.io/badge/Code-SRUM-0F6E56?style=for-the-badge" alt="Code"></a>
-  <a href="docs/index.html"><img src="https://img.shields.io/badge/Project-Page-5B7C99?style=for-the-badge" alt="Project"></a>
-  <a href="docs/evaluate.md"><img src="https://img.shields.io/badge/Guide-evaluate-B08D57?style=for-the-badge" alt="Evaluate"></a>
+  <a href="https://github.com/HKU-MMLab/SRUM"><img src="https://img.shields.io/badge/Code-SRUM-C43B3F?style=for-the-badge" alt="Code"></a>
+  <a href="docs/index.html"><img src="https://img.shields.io/badge/Project-Page-9E2B2F?style=for-the-badge" alt="Project"></a>
+  <a href="docs/evaluate.md"><img src="https://img.shields.io/badge/Guide-evaluate-C4922E?style=for-the-badge" alt="Evaluate"></a>
+</p>
+
+<p align="center">
+  <img src="assets/hku-mmlab.png" alt="HKU MMLab" width="56" height="56">
 </p>
 
 <p align="center">
@@ -224,7 +229,7 @@ Apache 2.0 (see `LICENSE`). BAGEL components follow their upstream terms.
 
 ## Acknowledgements
 
-Built on [BAGEL](https://github.com/ByteDance-Seed/Bagel). Repository presentation follows the [HKU-MMLab/MIST](https://github.com/HKU-MMLab/MIST) layout. Project visuals adapted from the SRUM paper materials.
+A project from **[HKU MMLab](https://github.com/HKU-MMLab)**. Built on [BAGEL](https://github.com/ByteDance-Seed/Bagel). Visual identity follows the SRUM paper teaser (red / peach) and the HKU MMLab mark.
 
 ## Contact
 

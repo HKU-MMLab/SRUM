@@ -4,16 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SRUM · Fine-Grained Self-Rewarding for Unified Multimodal Models</title>
-  <meta name="description" content="SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models (ECCV 2026)" />
+  <meta name="description" content="SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models (ECCV 2026), HKU MMLab" />
   <link rel="stylesheet" href="static/css/style.css" />
 </head>
 <body>
+  <div class="brand-bar">
+    <a class="brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
+      <img src="images/hku-mmlab.png" alt="HKU MMLab" width="44" height="44" />
+      <span class="brand-text">
+        <strong>HKU MMLab</strong>
+        <span>Multimedia Laboratory · The University of Hong Kong</span>
+      </span>
+    </a>
+    <span class="brand-pill">ECCV 2026</span>
+  </div>
+
   <header>
-    <p class="kicker">ECCV 2026 · HKU MMLab</p>
-    <h1>SRUM: Fine-Grained Self-Rewarding<br>for Unified Multimodal Models</h1>
+    <p class="kicker">Self-rewarding post-training for unified multimodal models</p>
+    <h1><span class="accent">SRUM</span>: Fine-Grained Self-Rewarding<br>for Unified Multimodal Models</h1>
     <p class="lede">
-      Let a unified model’s understanding module reward its own generation —
-      closing the understanding–generation gap without extra human labels.
+      Close the understanding–generation gap by letting a UMM’s own understanding
+      module reward its generation — without extra human labels.
     </p>
     <p class="authors">
       <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>*</sup>,
@@ -32,8 +43,8 @@
   </header>
 
   <figure class="hero-fig">
-    <img src="images/teaser.png" alt="SRUM teaser" width="1100" />
-    <figcaption>Understanding supervises generation through offline self-rewarding.</figcaption>
+    <img src="images/teaser.png" alt="SRUM teaser: bridging the gap between understanding and generation" width="1100" />
+    <figcaption>Paper teaser — understanding supervises generation through offline self-rewarding.</figcaption>
   </figure>
 
   <section class="nums">
@@ -55,7 +66,8 @@
     <h2>Overview</h2>
     <p class="hint">
       UMMs can understand a prompt yet still miss attributes when generating.
-      SRUM freezes understanding as an evaluator and updates generation with a global–local dual reward.
+      SRUM freezes understanding as an evaluator and updates generation with a global–local dual reward —
+      the same narrative as the paper figure above.
     </p>
     <div class="qtable-wrap">
       <table class="qtable">
@@ -86,7 +98,7 @@
   <section>
     <h2>Method</h2>
     <figure class="inline-fig">
-      <img src="images/method.png" alt="SRUM method" width="1100" />
+      <img src="images/method.png" alt="SRUM method overview" width="1100" />
     </figure>
     <ol class="steps">
       <li>Sample candidates from the base UMM (~6K).</li>
@@ -132,7 +144,7 @@
 
   <section>
     <h2>Evaluation</h2>
-    <p class="hint">Main paper benches plus related suites shipped under <code>Bagel/eval/</code>. Details in <a href="evaluate.md">evaluate.md</a>.</p>
+    <p class="hint">Main paper benches plus related suites under <code>Bagel/eval/</code>. Details in <a href="evaluate.md">evaluate.md</a>.</p>
     <nav class="benches">
       <a href="https://github.com/Karine-Huang/T2I-CompBench">T2I-CompBench</a>
       <a href="https://arxiv.org/abs/2510.12784">T2I-ReasonBench</a>
@@ -155,7 +167,11 @@
   </section>
 
   <footer>
-    <p>HKU MMLab · <a href="https://github.com/HKU-MMLab/SRUM">github.com/HKU-MMLab/SRUM</a> · presentation aligned with <a href="https://github.com/HKU-MMLab/MIST">MIST</a></p>
+    <a class="footer-brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
+      <img src="images/hku-mmlab.png" alt="" width="28" height="28" />
+      <span>HKU MMLab</span>
+    </a>
+    <p><a href="https://github.com/HKU-MMLab/SRUM">github.com/HKU-MMLab/SRUM</a></p>
   </footer>
 </body>
 </html>
