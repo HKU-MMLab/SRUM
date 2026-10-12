@@ -54,7 +54,7 @@ Shenghua Gao &nbsp;
 
 ## Overview
 
-Unified multimodal models (UMMs) share one stack for understanding and generation, yet a model that can **describe** an image often still fails to **draw** what the prompt asks. SRUM treats that gap as a training signal: freeze the understanding side as an internal evaluator, score generated candidates with a **global–local dual reward**, and update only the generation / flow parameters.
+Unified multimodal models (UMMs) share one stack for understanding and generation, yet a model that can **describe** an image often still fails to **draw** what the prompt asks. A UMM may correctly parse “red banana on yellow apple” while generating the swapped binding — the failure is executable, not merely linguistic. SRUM treats that gap as a training signal: freeze the understanding side as an internal evaluator, score generated candidates with a **global–local dual reward**, and update only the generation / flow parameters.
 
 | | Question | How this repository studies it |
 | :---: | --- | --- |
@@ -62,7 +62,13 @@ Unified multimodal models (UMMs) share one stack for understanding and generatio
 | **Q2** | What reward granularity is needed? | Global layout weight **α** plus local region map **R**. |
 | **Q3** | Does it transfer beyond one metric? | Gains on T2I-CompBench and T2I-ReasonBench (BAGEL + SRUM). |
 
-Paper numbers below are reported cells. This repository ships the BAGEL-compatible stack, self-reward modules, and eval entry points under `Bagel/eval/`. Training details: [docs/method.md](docs/method.md). Bench protocol: [docs/evaluate.md](docs/evaluate.md).
+Paper numbers below are reported cells. This repository ships the BAGEL-compatible stack, self-reward modules, and eval entry points under `Bagel/eval/`. Training details: [docs/method.md](docs/method.md). Bench protocol: [docs/evaluate.md](docs/evaluate.md). Project page: [hku-mmlab.github.io/SRUM](https://hku-mmlab.github.io/SRUM/).
+
+## Key Findings
+
+1. **Understanding ≠ generation.** Correct captions do not guarantee correct pixels; attribute binding and spatial order often break at generation time.
+2. **Dual rewards matter.** Global α alone is too coarse; local region map R keeps object-level errors visible to the loss.
+3. **Transfer without preference data.** BAGEL + SRUM (CoT) reaches **88.37** CompBench overall and **46.75** ReasonBench average, with **no extra human reward labels**.
 
 ## Method
 

@@ -10,155 +10,289 @@
   <link rel="stylesheet" href="static/css/style.css" />
 </head>
 <body>
-  <div class="brand-bar">
-    <a class="brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
-      <img src="images/hku-mmlab.png" alt="HKU MMLab" width="44" height="44" />
-      <span class="brand-text">
-        <strong>HKU MMLab</strong>
-        <span>Multimedia Laboratory · The University of Hong Kong</span>
-      </span>
-    </a>
-    <span class="brand-pill">ECCV 2026</span>
-  </div>
+  <header class="hero-oil">
+    <div class="hero-inner">
+      <div class="brand-bar">
+        <a class="brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
+          <img src="images/hku-mmlab.png" alt="HKU MMLab" width="48" height="48" />
+          <span class="brand-text">
+            <strong>HKU MMLab</strong>
+            <span>Multimedia Laboratory · The University of Hong Kong</span>
+          </span>
+        </a>
+        <span class="brand-pill">ECCV 2026</span>
+      </div>
 
-  <header>
-    <p class="kicker">Self-rewarding post-training for unified multimodal models</p>
-    <h1><span class="accent">SRUM</span>: Fine-Grained Self-Rewarding<br>for Unified Multimodal Models</h1>
-    <p class="lede">
-      Close the understanding–generation gap by letting a UMM’s own understanding
-      module reward its generation — without extra human labels.
-    </p>
-    <p class="authors">
-      <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>*</sup>,
-      <a href="https://purshow.github.io/">Yuwei Niu</a><sup>*</sup>,
-      Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao,
-      <a href="https://xh-liu.github.io/">Xihui Liu</a>
-    </p>
-    <p class="affil">The University of Hong Kong · Peking University</p>
-    <nav class="cta">
-      <a href="https://arxiv.org/abs/2510.12784">Paper</a>
-      <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Model</a>
-      <a href="https://github.com/HKU-MMLab/SRUM">Code</a>
-      <a href="method.md">Method</a>
-      <a href="evaluate.md">Evaluate</a>
-    </nav>
+      <p class="kicker">Self-rewarding post-training for unified multimodal models</p>
+      <h1><span class="accent">SRUM</span><br>Fine-Grained Self-Rewarding for Unified Multimodal Models</h1>
+      <p class="lede">
+        A model that can <em>understand</em> “red banana on yellow apple” may still
+        <em>generate</em> the swapped pair. SRUM closes that gap by turning the
+        understanding module into an internal rewarder for generation — without
+        extra human labels.
+      </p>
+      <p class="authors">
+        <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>*</sup>,
+        <a href="https://purshow.github.io/">Yuwei Niu</a><sup>*</sup>,
+        Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao,
+        <a href="https://xh-liu.github.io/">Xihui Liu</a>
+      </p>
+      <p class="affil">* Equal contribution · The University of Hong Kong · Peking University</p>
+      <nav class="cta">
+        <a href="https://arxiv.org/abs/2510.12784">Paper</a>
+        <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Model</a>
+        <a href="https://github.com/HKU-MMLab/SRUM">Code</a>
+        <a href="method.md">Method guide</a>
+        <a href="evaluate.md">Eval guide</a>
+      </nav>
+    </div>
   </header>
 
-  <figure class="hero-fig">
-    <img src="images/teaser.png" alt="SRUM teaser: bridging the gap between understanding and generation" width="1100" />
-    <figcaption>Paper teaser — understanding supervises generation through offline self-rewarding.</figcaption>
-  </figure>
-
-  <section class="nums">
-    <article>
-      <h3>T2I-CompBench</h3>
-      <p>82.18 → <strong>88.37</strong></p>
-    </article>
-    <article>
-      <h3>T2I-ReasonBench</h3>
-      <p>43.82 → <strong>46.75</strong></p>
-    </article>
-    <article>
-      <h3>Human labels</h3>
-      <p><strong>None</strong> required for rewards</p>
-    </article>
-  </section>
-
-  <section>
-    <h2>Overview</h2>
-    <p class="hint">
-      UMMs can understand a prompt yet still miss attributes when generating.
-      SRUM freezes understanding as an evaluator and updates generation with a global–local dual reward —
-      the same narrative as the paper figure above.
-    </p>
-    <div class="qtable-wrap">
-      <table class="qtable">
-        <thead>
-          <tr><th></th><th>Question</th><th>How we study it</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Q1</strong></td>
-            <td>Can understanding supervise generation without labels?</td>
-            <td>Offline self-rewarding on frozen UMM scores.</td>
-          </tr>
-          <tr>
-            <td><strong>Q2</strong></td>
-            <td>What reward granularity is needed?</td>
-            <td>Global α plus local region map R.</td>
-          </tr>
-          <tr>
-            <td><strong>Q3</strong></td>
-            <td>Does it transfer beyond one metric?</td>
-            <td>CompBench and ReasonBench gains on BAGEL.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section>
-    <h2>Method</h2>
-    <figure class="inline-fig">
-      <img src="images/method.png" alt="SRUM method overview" width="1100" />
-    </figure>
-    <ol class="steps">
-      <li>Sample candidates from the base UMM (~6K).</li>
-      <li>Freeze the understanding module as evaluator (no evaluator gradients).</li>
-      <li>Score with global layout weight <strong>α</strong> and local region map <strong>R</strong>.</li>
-      <li>Update generation / flow with <code>L = L_r + λ_c · L_ref</code> (<code>λ_c = 0.5</code>).</li>
-    </ol>
-    <p class="hint">Defaults: AdamW · lr 2.5×10<sup>−5</sup> · warmup 500 · grad clip 1.0 · see <a href="method.md">method.md</a></p>
-  </section>
-
-  <section>
-    <h2>Results</h2>
-    <figure class="inline-fig">
-      <img src="images/results.png" alt="SRUM results" width="900" />
-    </figure>
-    <div class="grid two">
-      <article class="card">
-        <span class="tag">Composition</span>
-        <h3>T2I-CompBench</h3>
-        <table>
-          <thead><tr><th>Model</th><th>Overall</th></tr></thead>
-          <tbody>
-            <tr><td>Bagel</td><td>82.18</td></tr>
-            <tr><td>Bagel (CoT)</td><td>84.46</td></tr>
-            <tr class="best"><td>Bagel + SRUM (CoT)</td><td>88.37</td></tr>
-          </tbody>
-        </table>
-      </article>
-      <article class="card">
-        <span class="tag">Reasoning</span>
-        <h3>T2I-ReasonBench</h3>
-        <table>
-          <thead><tr><th>Model</th><th>Average</th></tr></thead>
-          <tbody>
-            <tr><td>Bagel</td><td>43.82</td></tr>
-            <tr><td>Bagel + SFT</td><td>45.37</td></tr>
-            <tr class="best"><td>Bagel + SRUM</td><td>46.75</td></tr>
-          </tbody>
-        </table>
-      </article>
-    </div>
-  </section>
-
-  <section>
-    <h2>Evaluation</h2>
-    <p class="hint">Main paper benches plus related suites under <code>Bagel/eval/</code>. Details in <a href="evaluate.md">evaluate.md</a>.</p>
-    <nav class="benches">
-      <a href="https://github.com/Karine-Huang/T2I-CompBench">T2I-CompBench</a>
-      <a href="https://arxiv.org/abs/2510.12784">T2I-ReasonBench</a>
-      <a href="https://github.com/djghosh13/geneval">GenEval</a>
-      <a href="https://github.com/PKU-YuanGroup/WISE">WISE</a>
-      <a href="https://github.com/TencentQQGYLab/ELLA">DPG-Bench</a>
+  <main class="page">
+    <nav class="toc" aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#findings">Findings</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#gallery">Qualitative</a>
+      <a href="#evaluation">Evaluation</a>
+      <a href="#citation">Citation</a>
     </nav>
-  </section>
 
-  <section>
-    <h2>Citation</h2>
-    <pre class="bib">@inproceedings{jin2026srum,
+    <section class="nums" id="highlights">
+      <article>
+        <h3>T2I-CompBench</h3>
+        <p>82.18 → <strong>88.37</strong></p>
+      </article>
+      <article>
+        <h3>T2I-ReasonBench</h3>
+        <p>43.82 → <strong>46.75</strong></p>
+      </article>
+      <article>
+        <h3>Candidates</h3>
+        <p>~<strong>6K</strong> offline samples</p>
+      </article>
+      <article>
+        <h3>Human labels</h3>
+        <p><strong>None</strong> for rewards</p>
+      </article>
+    </section>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="lead">
+        Unified multimodal models (UMMs) share one stack for vision-language understanding
+        and generation. In practice, strong understanding often fails to transfer:
+        the model can describe a scene correctly, yet still violate color binding,
+        spatial order, or world knowledge when asked to draw it. SRUM treats that mismatch
+        as a training signal.
+      </p>
+      <div class="qtable-wrap">
+        <table class="qtable">
+          <thead>
+            <tr><th></th><th>Question</th><th>How SRUM answers it</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q1</td>
+              <td>Can understanding supervise generation without human preference data?</td>
+              <td>Offline self-rewarding: freeze understanding as evaluator; update generation / flow only.</td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td>What reward structure is rich enough for images?</td>
+              <td>Global layout score <strong>α</strong> gates a local region map <strong>R</strong> (object-level fidelity).</td>
+            </tr>
+            <tr>
+              <td>Q3</td>
+              <td>Does the signal transfer beyond one diagnostic?</td>
+              <td>Composition (CompBench) and reasoning-informed T2I (ReasonBench) both improve on BAGEL.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="findings">
+      <h2>Key findings</h2>
+      <p class="lead">Numbers below are paper cells on BAGEL. This page does not regenerate them.</p>
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Gap</span>
+          <h3>Understanding ≠ generation</h3>
+          <p>
+            A UMM may correctly parse “red banana on yellow apple” while generating the
+            swapped binding. The failure is executable, not merely linguistic.
+          </p>
+        </article>
+        <article class="card">
+          <span class="tag">Reward</span>
+          <h3>Global–local dual signal</h3>
+          <p>
+            Global α checks whole-image alignment; local R paints region scores into boxes
+            so object errors are not washed out by an image-level average.
+          </p>
+        </article>
+        <article class="card">
+          <span class="tag">Transfer</span>
+          <h3>Composition + reasoning</h3>
+          <p>
+            BAGEL + SRUM (CoT) reaches <strong>88.37</strong> CompBench overall and
+            <strong>46.75</strong> ReasonBench average, without extra human reward labels.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="method">
+      <h2>Method</h2>
+      <figure class="figure">
+        <img src="images/teaser.png" alt="SRUM paper teaser" width="1100" />
+        <figcaption>Paper teaser — the understanding module rewards generation through an offline loop.</figcaption>
+      </figure>
+      <figure class="figure">
+        <img src="images/method.png" alt="SRUM method figure" width="1100" />
+        <figcaption>Method overview from the paper materials.</figcaption>
+      </figure>
+
+      <div class="recipe">
+        <div class="panel">
+          <span class="tag">Offline recipe</span>
+          <h3>Four steps</h3>
+          <ol class="steps">
+            <li>Sample candidates from the base UMM (~6K in the paper setting).</li>
+            <li>Freeze the understanding module as evaluator — <strong>no evaluator gradients</strong>.</li>
+            <li>Score each candidate with global layout weight <strong>α</strong> and local region map <strong>R</strong>.</li>
+            <li>Update generation / flow parameters with the reward-weighted objective below.</li>
+          </ol>
+          <pre class="formula">L = L_r + λ_c · L_ref ,   λ_c = 0.5</pre>
+          <p>
+            <code>L_r</code> is reward-weighted flow matching; <code>L_ref</code> is the reference
+            constraint (not an extra KL term). Details: <a href="method.md">method.md</a>.
+          </p>
+        </div>
+        <div class="panel">
+          <span class="tag">Defaults</span>
+          <h3>Paper setting</h3>
+          <table class="kv">
+            <thead><tr><th>Item</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Optimizer</td><td>AdamW</td></tr>
+              <tr><td>Learning rate</td><td>2.5×10<sup>−5</sup></td></tr>
+              <tr><td>Warmup</td><td>500 steps</td></tr>
+              <tr><td>Grad clip</td><td>1.0</td></tr>
+              <tr><td>λ<sub>c</sub></td><td>0.5</td></tr>
+              <tr><td>Code</td><td><code>srum/</code> + <code>Bagel/</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <h2>Results</h2>
+      <figure class="figure">
+        <img src="images/results.png" alt="SRUM quantitative results" width="960" />
+        <figcaption>Quantitative summary from the paper figures.</figcaption>
+      </figure>
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag">Composition</span>
+          <h3>T2I-CompBench (overall)</h3>
+          <table class="score-table">
+            <thead><tr><th>Model</th><th>Overall</th></tr></thead>
+            <tbody>
+              <tr><td>Bagel</td><td>82.18</td></tr>
+              <tr><td>Bagel (CoT)</td><td>84.46</td></tr>
+              <tr class="best"><td>Bagel + SRUM (CoT)</td><td>88.37</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="card">
+          <span class="tag">Reasoning</span>
+          <h3>T2I-ReasonBench (average)</h3>
+          <table class="score-table">
+            <thead><tr><th>Model</th><th>Average</th></tr></thead>
+            <tbody>
+              <tr><td>Bagel</td><td>43.82</td></tr>
+              <tr><td>Bagel + SFT</td><td>45.37</td></tr>
+              <tr class="best"><td>Bagel + SRUM</td><td>46.75</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+      <p class="lead">
+        Full category tables (color, shape, spatial, numeracy, entity, idiom, …) live on the
+        <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Hugging Face model card</a>
+        and in the <a href="https://arxiv.org/abs/2510.12784">arXiv paper</a>.
+      </p>
+    </section>
+
+    <section id="gallery">
+      <h2>Qualitative &amp; analysis</h2>
+      <p class="lead">
+        SRUM improves compositional binding, reasoning metaphors, and world-knowledge prompts —
+        cases where base UMMs often look fluent but violate the instruction.
+      </p>
+      <div class="gallery">
+        <figure>
+          <img src="images/gallery/qual_a.png" alt="Qualitative composition example" />
+          <figcaption>Compositional generation — attribute binding and counting.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gallery/qual_b.png" alt="Qualitative reasoning example" />
+          <figcaption>Reasoning-informed prompts — idioms and world knowledge.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gallery/qual_c.png" alt="Qualitative comparison example" />
+          <figcaption>Side-by-side improvements after self-rewarding.</figcaption>
+        </figure>
+      </div>
+      <div class="grid-2" style="margin-top:0.9rem">
+        <figure class="figure" style="margin:0">
+          <img src="images/gallery/pipeline.png" alt="Pipeline / analysis figure" />
+          <figcaption>Supporting analysis figure from the paper materials.</figcaption>
+        </figure>
+        <figure class="figure" style="margin:0">
+          <img src="images/gallery/ablation.png" alt="Ablation figure" />
+          <figcaption>Ablation / component study materials.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="evaluation">
+      <h2>Evaluation</h2>
+      <p class="lead">
+        Main paper benches are CompBench and ReasonBench. The BAGEL stack also ships scripts for
+        GenEval, WISE, ImgEdit, GEdit, KRIS, and RISE under <code>Bagel/eval/</code> —
+        useful when comparing UMM post-training more broadly. Protocol notes:
+        <a href="evaluate.md">evaluate.md</a>.
+      </p>
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag">Main</span>
+          <h3>Reported in the paper</h3>
+          <nav class="benches">
+            <a href="https://github.com/Karine-Huang/T2I-CompBench">T2I-CompBench</a>
+            <a href="https://arxiv.org/abs/2510.12784">T2I-ReasonBench</a>
+          </nav>
+        </article>
+        <article class="card">
+          <span class="tag">Related</span>
+          <h3>Available in this repo</h3>
+          <nav class="benches">
+            <a href="https://github.com/djghosh13/geneval">GenEval</a>
+            <a href="https://github.com/PKU-YuanGroup/WISE">WISE</a>
+            <a href="https://github.com/TencentQQGYLab/ELLA">DPG-Bench</a>
+            <a href="https://github.com/HKU-MMLab/SRUM/tree/main/Bagel/scripts/eval">Bagel/scripts/eval</a>
+          </nav>
+        </article>
+      </div>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+      <pre class="bib">@inproceedings{jin2026srum,
   title={Srum: Fine-grained self-rewarding for unified multimodal models},
   author={Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
   booktitle={European Conference on Computer Vision},
@@ -166,14 +300,19 @@
   year={2026},
   organization={Springer}
 }</pre>
-  </section>
+    </section>
 
-  <footer>
-    <a class="footer-brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
-      <img src="images/hku-mmlab.png" alt="" width="28" height="28" />
-      <span>HKU MMLab</span>
-    </a>
-    <p><a href="https://github.com/HKU-MMLab/SRUM">github.com/HKU-MMLab/SRUM</a></p>
-  </footer>
+    <footer>
+      <a class="footer-brand" href="https://github.com/HKU-MMLab" target="_blank" rel="noopener">
+        <img src="images/hku-mmlab.png" alt="" width="28" height="28" />
+        <span>HKU MMLab</span>
+      </a>
+      <p>
+        <a href="https://hku-mmlab.github.io/SRUM/">hku-mmlab.github.io/SRUM</a>
+        ·
+        <a href="https://github.com/HKU-MMLab/SRUM">GitHub</a>
+      </p>
+    </footer>
+  </main>
 </body>
 </html>
