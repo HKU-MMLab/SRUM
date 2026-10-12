@@ -72,13 +72,43 @@
         <article>
           <span class="step">02</span>
           <h3>Dual reward</h3>
-          <p>Global score α gates a local region map R for layout and object-level fidelity.</p>
+          <p>Global score <strong>α</strong> gates a local region map <strong>R</strong> for layout and object-level fidelity.</p>
         </article>
         <article>
           <span class="step">03</span>
           <h3>Improve</h3>
-          <p>Update generation / flow parameters with \(L_r + \lambda_c L_{\mathrm{ref}}\) (\(\lambda_c=0.5\)).</p>
+          <p>Update generation / flow parameters with <code>L = L_r + λ_c · L_ref</code> (<code>λ_c = 0.5</code>).</p>
         </article>
+      </div>
+      <p class="body" style="margin-top:1rem">
+        Offline recipe: ~6K candidates · AdamW · lr 2.5×10<sup>−5</sup> · warmup 500 · grad clip 1.0
+      </p>
+    </section>
+
+    <section>
+      <h2>Evaluation</h2>
+      <div class="tables">
+        <div class="table-card">
+          <h3>Main</h3>
+          <table>
+            <thead><tr><th>Benchmark</th><th>Focus</th></tr></thead>
+            <tbody>
+              <tr><td><a href="https://github.com/Karine-Huang/T2I-CompBench">T2I-CompBench</a></td><td>Compositional T2I</td></tr>
+              <tr><td>T2I-ReasonBench</td><td>Reasoning-informed T2I</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-card">
+          <h3>Related (optional)</h3>
+          <table>
+            <thead><tr><th>Benchmark</th><th>Focus</th></tr></thead>
+            <tbody>
+              <tr><td><a href="https://github.com/djghosh13/geneval">GenEval</a></td><td>Object composition</td></tr>
+              <tr><td>DPG-Bench</td><td>Dense prompt following</td></tr>
+              <tr><td><a href="https://github.com/PKU-YuanGroup/WISE">WISE</a></td><td>World-knowledge T2I</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 

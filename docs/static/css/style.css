@@ -219,6 +219,16 @@ footer {
   font-size: 0.88rem;
 }
 footer a { color: var(--accent); text-decoration: none; }
+.table-card a { color: var(--accent); text-decoration: none; }
+.table-card a:hover { text-decoration: underline; }
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.08rem 0.35rem;
+}
 
 @media (max-width: 780px) {
   .metrics, .cards, .tables { grid-template-columns: 1fr; }

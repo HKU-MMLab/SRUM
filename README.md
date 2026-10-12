@@ -11,7 +11,7 @@
 [![Project](https://img.shields.io/badge/Project-Page-0f6e56)](./docs/index.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](./LICENSE)
 
-**Weiyang Jin\*** · **Yuwei Niu\*** · Jiaqi Liao · Chengqi Duan · Aoxue Li · Shenghua Gao · **Xihui Liu**
+**Weiyang Jin**<sup>*</sup> · **Yuwei Niu**<sup>*</sup> · Jiaqi Liao · Chengqi Duan · Aoxue Li · Shenghua Gao · **Xihui Liu**
 
 The University of Hong Kong  
 Contact: [xihuiliu@hku.hk](mailto:xihuiliu@hku.hk)
@@ -87,14 +87,14 @@ Offline self-rewarding (paper setting):
 
 1. Sample candidates from the base UMM (~6K).
 2. Freeze the understanding module as evaluator (**no evaluator gradients**).
-3. Score with global layout weight \(\alpha\) and local region map \(R\).
+3. Score with global layout weight **α** and local region map **R**.
 4. Update generation / flow parameters with
 
-\[
-L = L_r + \lambda_c L_{\mathrm{ref}}, \qquad \lambda_c = 0.5
-\]
+```text
+L = L_r + λ_c · L_ref ,   λ_c = 0.5
+```
 
-Defaults: AdamW, lr \(2.5\times 10^{-5}\), warmup 500, grad clip 1.0.
+Defaults: **AdamW**, lr **2.5×10<sup>−5</sup>**, warmup **500**, grad clip **1.0**.
 
 | Module | Path |
 |--------|------|
@@ -102,6 +102,26 @@ Defaults: AdamW, lr \(2.5\times 10^{-5}\), warmup 500, grad clip 1.0.
 | Dual-reward helpers | `srum/rewards.py` |
 | Training skeleton | `srum/train_srum.py` |
 | BAGEL stack | `Bagel/` |
+
+## Evaluation
+
+We mainly report:
+
+| Benchmark | Focus | Link |
+|-----------|--------|------|
+| **T2I-CompBench** | Compositional T2I (color, shape, spatial, numeracy, …) | [GitHub](https://github.com/Karine-Huang/T2I-CompBench) |
+| **T2I-ReasonBench** | Reasoning-informed T2I (entity, idiom, science, text) | paper / release notes |
+
+Related generation / editing benches used in the broader UMM ecosystem (optional extras when comparing to BAGEL / RecA-style setups):
+
+| Benchmark | Focus | Link |
+|-----------|--------|------|
+| GenEval | Object-focused compositional generation | [GitHub](https://github.com/djghosh13/geneval) |
+| DPG-Bench | Dense prompt following | [GitHub](https://github.com/TencentQQGYLab/ELLA) |
+| WISE | World-knowledge T2I | [GitHub](https://github.com/PKU-YuanGroup/WISE) |
+| ImgEdit / GEdit | Image editing quality | see BAGEL `Bagel/eval` |
+
+Eval helpers live under `Bagel/eval/` (GenEval, WISE, ImgEdit, …). CompBench-style scoring follows the official T2I-CompBench protocol.
 
 ## Results
 
