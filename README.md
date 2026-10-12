@@ -32,10 +32,10 @@ Shenghua Gao &nbsp;
 </p>
 
 <p align="center">
-  <img width="920" alt="SRUM teaser: self-rewarding bridges understanding and generation in unified multimodal models." src="assets/teaser.png">
+  <img width="920" alt="SRUM teaser: the understanding module rewards generation." src="assets/teaser.png">
 </p>
 <p align="center">
-  <em>SRUM uses a UMM's own understanding module to reward its generation module — no extra human labels.</em>
+  <em>Understanding can mark a correct image and still fail to draw it. SRUM turns that judgement into a training signal.</em>
 </p>
 
 <p align="center">
@@ -66,9 +66,22 @@ Paper numbers below are reported cells. This repository ships the BAGEL-compatib
 
 ## Key Findings
 
-1. **Understanding ≠ generation.** Correct captions do not guarantee correct pixels; attribute binding and spatial order often break at generation time.
-2. **Dual rewards matter.** Global α alone is too coarse; local region map R keeps object-level errors visible to the loss.
-3. **Transfer without preference data.** BAGEL + SRUM (CoT) reaches **88.37** CompBench overall and **46.75** ReasonBench average, with **no extra human reward labels**.
+### Finding 1: Understanding does not transfer to generation
+
+A UMM can mark “red banana on yellow apple” as correct and still draw the swapped pair. The failure is executable: the pixels do not obey a constraint the understanding module already parses.
+
+### Finding 2: A scalar reward is too coarse
+
+Global layout weight **α** checks the whole canvas. Local region map **R** keeps object-level errors visible. Dropping either, or replacing the dense map with a 0–1 reward, loses accuracy on T2I-CompBench (full SRUM is the reference; Base is **−4.37**).
+
+### Finding 3: The same run transfers, without human preference labels
+
+| Bench | Base | Comparison | SRUM |
+| --- | ---: | ---: | ---: |
+| T2I-CompBench overall | 82.18 (Bagel) | 84.46 (Bagel CoT) | **88.37** (Bagel + SRUM, CoT) |
+| T2I-ReasonBench average | 43.82 | 45.37 (Bagel + SFT) | **46.75** |
+
+SFT sees the same self-generated images and still trails SRUM. The extra signal is the mark, not more pictures.
 
 ## Method
 
@@ -98,16 +111,7 @@ Defaults: **AdamW**, lr **2.5×10<sup>−5</sup>**, warmup **500**, grad clip **
 
 ## Results
 
-<p align="center">
-  <img width="920" alt="Base vs SRUM qualitative before/after." src="assets/before_after.png">
-</p>
-<p align="center">
-  <em>Same prompts — Base (before) vs SRUM (after): commonsense, idiom reasoning, counting.</em>
-</p>
-
-<p align="center">
-  <img width="720" alt="SRUM quantitative results." src="docs/images/results.png">
-</p>
+Same prompts, Base vs SRUM, are on the [project page](https://hku-mmlab.github.io/SRUM/#gallery). Drag the handle (or use Base / Split / SRUM). The four pairs are filtered poster cases — commonsense, idiom, counting, and the understanding–generation gap — not a benchmark mean.
 
 **Composition (T2I-CompBench overall)**
 

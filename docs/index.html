@@ -23,28 +23,33 @@
         <span class="brand-pill">ECCV 2026</span>
       </div>
 
-      <p class="kicker">Self-rewarding post-training for unified multimodal models</p>
-      <h1><span class="accent">SRUM</span><br>Fine-Grained Self-Rewarding for Unified Multimodal Models</h1>
-      <p class="lede">
-        A model that can <em>understand</em> “red banana on yellow apple” may still
-        <em>generate</em> the swapped pair. SRUM closes that gap by turning the
-        understanding module into an internal rewarder for generation — without
-        extra human labels.
-      </p>
-      <p class="authors">
-        <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>*</sup>,
-        <a href="https://purshow.github.io/">Yuwei Niu</a><sup>*</sup>,
-        Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao,
-        <a href="https://xh-liu.github.io/">Xihui Liu</a>
-      </p>
-      <p class="affil">* Equal contribution · The University of Hong Kong · Peking University</p>
-      <nav class="cta">
-        <a href="https://arxiv.org/abs/2510.12784">Paper</a>
-        <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Model</a>
-        <a href="https://github.com/HKU-MMLab/SRUM">Code</a>
-        <a href="method.md">Method guide</a>
-        <a href="evaluate.md">Eval guide</a>
-      </nav>
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">Self-rewarding post-training for unified multimodal models</p>
+          <h1><span class="accent">SRUM</span><br>Fine-Grained Self-Rewarding for Unified Multimodal Models</h1>
+          <p class="lede">
+            A model that can <em>understand</em> “red banana on yellow apple” may still
+            <em>generate</em> the swapped pair. SRUM closes that gap by turning the
+            understanding module into an internal rewarder for generation — without
+            extra human labels.
+          </p>
+          <p class="authors">
+            <a href="https://waynejin0918.github.io/home/">Weiyang Jin</a><sup>*</sup>,
+            <a href="https://purshow.github.io/">Yuwei Niu</a><sup>*</sup>,
+            Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao,
+            <a href="https://xh-liu.github.io/">Xihui Liu</a>
+          </p>
+          <p class="affil">* Equal contribution · The University of Hong Kong · Peking University</p>
+          <nav class="cta">
+            <a href="https://arxiv.org/abs/2510.12784">Paper</a>
+            <a href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Model</a>
+            <a href="https://github.com/HKU-MMLab/SRUM">Code</a>
+            <a href="method.md">Method guide</a>
+            <a href="evaluate.md">Eval guide</a>
+          </nav>
+        </div>
+        <img class="hero-oil-still" src="images/hero-oil.jpg" alt="Oil study in the SRUM red and peach palette." />
+      </div>
     </div>
   </header>
 
@@ -147,12 +152,8 @@
     <section id="method">
       <h2>Method</h2>
       <figure class="figure">
-        <img src="images/teaser.png" alt="SRUM paper teaser" width="1100" />
-        <figcaption>Paper teaser — the understanding module rewards generation through an offline loop.</figcaption>
-      </figure>
-      <figure class="figure">
-        <img src="images/method.png" alt="SRUM method figure" width="1100" />
-        <figcaption>Method overview from the paper materials.</figcaption>
+        <img src="images/method.png" alt="SRUM method: self-rewarding data generation and reward-weighted training" width="1100" />
+        <figcaption>Understanding scores candidates (global α, local boxes); generation is updated with a reward-weighted velocity loss.</figcaption>
       </figure>
 
       <div class="recipe">
@@ -191,10 +192,6 @@
 
     <section id="results">
       <h2>Results</h2>
-      <figure class="figure">
-        <img src="images/results.png" alt="SRUM quantitative results" width="960" />
-        <figcaption>Quantitative summary from the paper figures.</figcaption>
-      </figure>
       <div class="grid-2">
         <article class="card">
           <span class="tag">Composition</span>
@@ -230,46 +227,100 @@
 
     <section id="gallery">
       <h2>Qualitative — Base vs SRUM</h2>
-      <p class="lead">
-        Same prompts, before / after. Rebuilt from the poster teaser pairs: Base generation on top,
-        SRUM after self-rewarding below — commonsense, idiom reasoning, and exact counting.
-      </p>
-      <figure class="figure ba-hero">
-        <img src="images/gallery/before_after.png" alt="Base vs SRUM qualitative before/after grid" />
-        <figcaption>Poster-style Base → SRUM comparison (paper Figure&nbsp;1 sample pairs).</figcaption>
-      </figure>
-      <div class="gallery ba-gallery">
-        <figure>
-          <img src="images/gallery/ba_1.png" alt="Commonsense: Base vs SRUM" />
-          <figcaption>Commonsense — holiday celebration.</figcaption>
+      <p class="lead">Drag the handle. Filtered poster pairs, not a benchmark mean. Left is Base, right is SRUM.</p>
+      <div class="ba-grid">
+        <figure class="ba">
+          <div class="cmp" tabindex="0" aria-label="Commonsense comparison. Drag to reveal SRUM.">
+            <img class="srum" src="images/pairs/holiday_srum.jpg" alt="SRUM: Christmas dinner" />
+            <img class="base" src="images/pairs/holiday_base.jpg" alt="Base: nativity scene" />
+            <div class="bar"></div>
+            <div class="knob"></div>
+            <span class="tag l">Base</span>
+            <span class="tag r">SRUM</span>
+          </div>
+          <div class="tools">
+            <button type="button" data-set="86">Base</button>
+            <button type="button" data-set="50" aria-pressed="true">Split</button>
+            <button type="button" data-set="14">SRUM</button>
+          </div>
+          <figcaption>
+            <strong>Commonsense.</strong>
+            <span class="prompt">“Holiday celebrating the birth of Jesus Christ”</span>
+          </figcaption>
         </figure>
-        <figure>
-          <img src="images/gallery/ba_2.png" alt="Reasoning: Base vs SRUM" />
-          <figcaption>Reasoning — “a piece of cake”.</figcaption>
+        <figure class="ba">
+          <div class="cmp" tabindex="0" aria-label="Reasoning comparison. Drag to reveal SRUM.">
+            <img class="srum" src="images/pairs/cake_srum.jpg" alt="SRUM: idiom, no cake" />
+            <img class="base" src="images/pairs/cake_base.jpg" alt="Base: literal cake" />
+            <div class="bar"></div>
+            <div class="knob"></div>
+            <span class="tag l">Base</span>
+            <span class="tag r">SRUM</span>
+          </div>
+          <div class="tools">
+            <button type="button" data-set="86">Base</button>
+            <button type="button" data-set="50" aria-pressed="true">Split</button>
+            <button type="button" data-set="14">SRUM</button>
+          </div>
+          <figcaption>
+            <strong>Reasoning.</strong>
+            <span class="prompt">“the final exam was a piece of cake”</span>
+          </figcaption>
         </figure>
-        <figure>
-          <img src="images/gallery/ba_3.png" alt="Compositional: Base vs SRUM" />
-          <figcaption>Compositional — seven books.</figcaption>
+        <figure class="ba">
+          <div class="cmp" tabindex="0" aria-label="Counting comparison. Drag to reveal SRUM.">
+            <img class="srum" src="images/pairs/books_srum.jpg" alt="SRUM: seven books" />
+            <img class="base" src="images/pairs/books_base.jpg" alt="Base: too many books" />
+            <div class="bar"></div>
+            <div class="knob"></div>
+            <span class="tag l">Base</span>
+            <span class="tag r">SRUM</span>
+          </div>
+          <div class="tools">
+            <button type="button" data-set="86">Base</button>
+            <button type="button" data-set="50" aria-pressed="true">Split</button>
+            <button type="button" data-set="14">SRUM</button>
+          </div>
+          <figcaption>
+            <strong>Composition.</strong>
+            <span class="prompt">“Generate image of seven books”</span>
+          </figcaption>
+        </figure>
+        <figure class="ba">
+          <div class="cmp" tabindex="0" aria-label="Understanding versus generation. Drag to reveal the correct binding.">
+            <img class="srum" src="images/pairs/gap_ok.jpg" alt="Correct binding: red banana on yellow apple" />
+            <img class="base" src="images/pairs/gap_wrong.jpg" alt="Generation swaps colors" />
+            <div class="bar"></div>
+            <div class="knob"></div>
+            <span class="tag l">Generate</span>
+            <span class="tag r">Understand</span>
+          </div>
+          <div class="tools">
+            <button type="button" data-set="86">Generate</button>
+            <button type="button" data-set="50" aria-pressed="true">Split</button>
+            <button type="button" data-set="14">Understand</button>
+          </div>
+          <figcaption>
+            <strong>The gap.</strong>
+            <span class="prompt">“red banana on yellow apple” — understanding is right, generation swaps the binding</span>
+          </figcaption>
+        </figure>
+      </div>
+      <h3 style="margin-top:1.6rem">Analysis</h3>
+      <div class="grid-2" style="margin-top:0.6rem">
+        <figure class="figure" style="margin:0">
+          <img src="images/gallery/module.png" alt="Module evaluation on T2I-CompBench" />
+          <figcaption>Module ablation vs Base and SFT on T2I-CompBench (Δ accuracy).</figcaption>
+        </figure>
+        <figure class="figure" style="margin:0">
+          <img src="images/gallery/lambda.png" alt="Accuracy versus lambda c" />
+          <figcaption>Reference weight λ<sub>c</sub>. Peak near 0.5, with and without CoT.</figcaption>
         </figure>
       </div>
       <figure class="figure" style="margin-top:0.9rem">
-        <img src="images/gallery/gap_pair.png" alt="Understanding correct vs generation wrong" />
-        <figcaption>
-          The gap SRUM targets: understanding marks “red banana on yellow apple” correctly,
-          while base generation still swaps the binding.
-        </figcaption>
+        <img src="images/gallery/curves.png" alt="Training curves for think, method, and global reward" />
+        <figcaption>Training curves: think vs no think, Base / SFT / SRUM, global reward on or off.</figcaption>
       </figure>
-      <h3 style="margin-top:1.4rem">Analysis charts</h3>
-      <div class="grid-2" style="margin-top:0.6rem">
-        <figure class="figure" style="margin:0">
-          <img src="images/gallery/pipeline.png" alt="Module evaluation / pipeline analysis" />
-          <figcaption>Module evaluation vs Base / SFT on CompBench.</figcaption>
-        </figure>
-        <figure class="figure" style="margin:0">
-          <img src="images/gallery/ablation.png" alt="Ablation figure" />
-          <figcaption>Think / method / global ablations over training steps.</figcaption>
-        </figure>
-      </div>
     </section>
 
     <section id="evaluation">
@@ -326,5 +377,35 @@
       </p>
     </footer>
   </main>
+  <script>
+    document.querySelectorAll(".cmp").forEach((el) => {
+      const set = (clientX) => {
+        const box = el.getBoundingClientRect();
+        const p = Math.min(92, Math.max(8, ((clientX - box.left) / box.width) * 100));
+        el.style.setProperty("--p", p + "%");
+      };
+      let drag = false;
+      el.addEventListener("pointerdown", (event) => {
+        drag = true;
+        el.setPointerCapture(event.pointerId);
+        set(event.clientX);
+      });
+      el.addEventListener("pointermove", (event) => { if (drag) set(event.clientX); });
+      el.addEventListener("pointerup", () => { drag = false; });
+      el.addEventListener("keydown", (event) => {
+        const current = parseFloat(getComputedStyle(el).getPropertyValue("--p")) || 50;
+        if (event.key === "ArrowLeft") el.style.setProperty("--p", Math.max(8, current - 6) + "%");
+        if (event.key === "ArrowRight") el.style.setProperty("--p", Math.min(92, current + 6) + "%");
+      });
+      el.parentElement.querySelectorAll("[data-set]").forEach((button) => {
+        button.addEventListener("click", () => {
+          el.style.setProperty("--p", button.dataset.set + "%");
+          button.parentElement.querySelectorAll("button").forEach((other) => {
+            other.setAttribute("aria-pressed", other === button ? "true" : "false");
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>

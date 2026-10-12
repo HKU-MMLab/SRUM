@@ -28,43 +28,39 @@ body {
     linear-gradient(180deg, #f3ebe3 0%, var(--bg) 28%, #f8f3ed 100%);
 }
 
-/* Oil-painting hero */
+/* Oil-painting hero — painting sits in the header, MIST-style */
 .hero-oil {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: clamp(420px, 62vh, 640px);
   color: #fff8f2;
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.hero-oil::before {
-  content: "";
-  position: absolute;
-  inset: 0;
   background:
-    linear-gradient(105deg, rgba(28, 12, 10, 0.78) 0%, rgba(28, 12, 10, 0.55) 42%, rgba(28, 12, 10, 0.28) 68%, rgba(28, 12, 10, 0.45) 100%),
-    url("../images/hero-oil.jpg") center / cover no-repeat;
-  z-index: -2;
-}
-
-.hero-oil::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.35;
-  mix-blend-mode: soft-light;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px);
+    radial-gradient(720px 280px at 8% 0%, rgba(255, 220, 190, 0.22), transparent 62%),
+    linear-gradient(165deg, #3a1416 0%, #8f2428 48%, #c4922e 86%, #f7f1ea 100%);
 }
 
 .hero-inner {
-  width: min(1100px, calc(100% - 2rem));
+  width: min(1160px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.4rem 0 2.6rem;
+  padding: 1.4rem 0 2.4rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.72fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero-oil-still {
+  width: 100%;
+  height: clamp(280px, 42vw, 420px);
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 246, 223, 0.45);
+  box-shadow: 0 18px 40px rgba(40, 8, 8, 0.28);
 }
 
 .brand-bar {
@@ -393,46 +389,67 @@ section > h2::after {
   text-transform: uppercase;
 }
 
-.gallery {
+.ba-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
-.gallery figure {
-  margin: 0;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.gallery img {
-  display: block;
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  background: #ddd;
-}
-.gallery.ba-gallery img {
-  height: auto;
-  max-height: 320px;
-  object-fit: contain;
-  background: #fffaf7;
-}
-.ba-hero {
-  margin: 0 0 0.9rem;
-}
-.ba-hero img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: #fffaf7;
-}
-.gallery figcaption {
-  padding: 0.7rem 0.8rem 0.85rem;
-  font-size: 0.86rem;
+.ba { margin: 0; }
+.ba figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
   color: var(--muted);
+}
+.ba figcaption strong { color: var(--ink); }
+.ba .prompt { display: block; margin-top: 0.15rem; font-style: italic; }
+.cmp {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1c1412;
+  cursor: ew-resize;
+  touch-action: none;
+  --p: 50%;
+}
+.cmp img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.cmp .base { z-index: 1; clip-path: inset(0 calc(100% - var(--p)) 0 0); }
+.cmp .bar, .cmp .knob { position: absolute; z-index: 2; pointer-events: none; }
+.cmp .bar {
+  top: 0; bottom: 0; left: var(--p); width: 2px;
+  background: #fff6df; transform: translateX(-1px);
+}
+.cmp .knob {
+  top: 50%; left: var(--p);
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #fff6df; border: 2px solid var(--red);
+  transform: translate(-50%, -50%);
+}
+.cmp .tag {
+  position: absolute; top: 10px; z-index: 2;
+  padding: 3px 9px; border-radius: 999px;
+  background: rgba(28, 20, 18, 0.62); color: #fff6df;
+  font-family: system-ui, sans-serif;
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  pointer-events: none;
+}
+.cmp .tag.l { left: 10px; }
+.cmp .tag.r { right: 10px; }
+.tools { display: flex; gap: 8px; margin: 8px 0 0; }
+.tools button {
+  font: inherit; font-size: 0.85rem;
+  padding: 0.35rem 0.75rem; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card); cursor: pointer;
+}
+.tools button[aria-pressed="true"] {
+  background: var(--best); border-color: var(--red); color: var(--red-deep);
 }
 
 .score-table {
@@ -521,7 +538,7 @@ code {
 
 @media (max-width: 900px) {
   .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid-2, .grid-3, .gallery, .recipe { grid-template-columns: 1fr; }
-  .gallery img { height: 220px; }
+  .grid-2, .grid-3, .ba-grid, .recipe, .hero-grid { grid-template-columns: 1fr; }
+  .hero-oil-still { height: 240px; }
   .brand-bar { flex-direction: column; align-items: flex-start; }
 }
