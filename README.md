@@ -111,7 +111,7 @@ Defaults: **AdamW**, lr **2.5×10<sup>−5</sup>**, warmup **500**, grad clip **
 
 ## Results
 
-Same prompts, Base vs SRUM, are on the [project page](https://hku-mmlab.github.io/SRUM/#gallery). Drag the handle (or use Base / Split / SRUM). The four pairs are filtered poster cases — commonsense, idiom, counting, and the understanding–generation gap — not a benchmark mean.
+Same prompts, Base vs SRUM, are on the [project page](https://hku-mmlab.github.io/SRUM/#gallery). Drag the handle (or use Base / Split / SRUM). Three filtered poster cases sit in one row: commonsense, idiom, and counting. They are not a benchmark mean.
 
 **Composition (T2I-CompBench overall)**
 

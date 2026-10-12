@@ -333,13 +333,30 @@ section > h2::after {
   text-align: center;
 }
 .figure img {
-  width: min(100%, 1100px);
+  width: min(100%, 720px);
   height: auto;
   border-radius: 14px;
   border: 1px solid var(--line);
   background: #fff;
   box-shadow: 0 14px 34px rgba(90, 40, 30, 0.07);
 }
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+  align-items: start;
+}
+.figure.chart { margin: 0; }
+.figure.chart img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 8px;
+  box-shadow: none;
+}
+.figure.chart.wide { grid-column: 1 / -1; }
+.figure.chart.wide img { max-width: 640px; }
+.figure.chart figcaption { font-size: 0.78rem; }
 .figure figcaption {
   margin-top: 0.5rem;
   color: var(--muted);
@@ -391,8 +408,9 @@ section > h2::after {
 
 .ba-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-width: 860px;
 }
 .ba { margin: 0; }
 .ba figcaption {
@@ -538,7 +556,9 @@ code {
 
 @media (max-width: 900px) {
   .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid-2, .grid-3, .ba-grid, .recipe, .hero-grid { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .ba-grid, .charts, .recipe, .hero-grid { grid-template-columns: 1fr; }
+  .figure.chart.wide { grid-column: auto; }
+  .figure.chart img, .figure.chart.wide img { max-width: 100%; }
   .hero-oil-still { height: 240px; }
   .brand-bar { flex-direction: column; align-items: flex-start; }
 }

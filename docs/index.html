@@ -286,41 +286,22 @@
             <span class="prompt">“Generate image of seven books”</span>
           </figcaption>
         </figure>
-        <figure class="ba">
-          <div class="cmp" tabindex="0" aria-label="Understanding versus generation. Drag to reveal the correct binding.">
-            <img class="srum" src="images/pairs/gap_ok.jpg" alt="Correct binding: red banana on yellow apple" />
-            <img class="base" src="images/pairs/gap_wrong.jpg" alt="Generation swaps colors" />
-            <div class="bar"></div>
-            <div class="knob"></div>
-            <span class="tag l">Generate</span>
-            <span class="tag r">Understand</span>
-          </div>
-          <div class="tools">
-            <button type="button" data-set="86">Generate</button>
-            <button type="button" data-set="50" aria-pressed="true">Split</button>
-            <button type="button" data-set="14">Understand</button>
-          </div>
-          <figcaption>
-            <strong>The gap.</strong>
-            <span class="prompt">“red banana on yellow apple” — understanding is right, generation swaps the binding</span>
-          </figcaption>
-        </figure>
       </div>
-      <h3 style="margin-top:1.6rem">Analysis</h3>
-      <div class="grid-2" style="margin-top:0.6rem">
-        <figure class="figure" style="margin:0">
+      <h3 style="margin-top:1.2rem">Analysis</h3>
+      <div class="charts">
+        <figure class="figure chart">
           <img src="images/gallery/module.png" alt="Module evaluation on T2I-CompBench" />
-          <figcaption>Module ablation vs Base and SFT on T2I-CompBench (Δ accuracy).</figcaption>
+          <figcaption>Module ablation vs Base and SFT (Δ accuracy).</figcaption>
         </figure>
-        <figure class="figure" style="margin:0">
+        <figure class="figure chart">
           <img src="images/gallery/lambda.png" alt="Accuracy versus lambda c" />
-          <figcaption>Reference weight λ<sub>c</sub>. Peak near 0.5, with and without CoT.</figcaption>
+          <figcaption>λ<sub>c</sub> peaks near 0.5.</figcaption>
+        </figure>
+        <figure class="figure chart wide">
+          <img src="images/gallery/curves.png" alt="Training curves for think, method, and global reward" />
+          <figcaption>Think, method, and global-reward curves.</figcaption>
         </figure>
       </div>
-      <figure class="figure" style="margin-top:0.9rem">
-        <img src="images/gallery/curves.png" alt="Training curves for think, method, and global reward" />
-        <figcaption>Training curves: think vs no think, Base / SFT / SRUM, global reward on or off.</figcaption>
-      </figure>
     </section>
 
     <section id="evaluation">
