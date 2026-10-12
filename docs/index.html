@@ -229,33 +229,45 @@
     </section>
 
     <section id="gallery">
-      <h2>Qualitative &amp; analysis</h2>
+      <h2>Qualitative — Base vs SRUM</h2>
       <p class="lead">
-        SRUM improves compositional binding, reasoning metaphors, and world-knowledge prompts —
-        cases where base UMMs often look fluent but violate the instruction.
+        Same prompts, before / after. Rebuilt from the poster teaser pairs: Base generation on top,
+        SRUM after self-rewarding below — commonsense, idiom reasoning, and exact counting.
       </p>
-      <div class="gallery">
+      <figure class="figure ba-hero">
+        <img src="images/gallery/before_after.png" alt="Base vs SRUM qualitative before/after grid" />
+        <figcaption>Poster-style Base → SRUM comparison (paper Figure&nbsp;1 sample pairs).</figcaption>
+      </figure>
+      <div class="gallery ba-gallery">
         <figure>
-          <img src="images/gallery/qual_a.png" alt="Qualitative composition example" />
-          <figcaption>Compositional generation — attribute binding and counting.</figcaption>
+          <img src="images/gallery/ba_1.png" alt="Commonsense: Base vs SRUM" />
+          <figcaption>Commonsense — holiday celebration.</figcaption>
         </figure>
         <figure>
-          <img src="images/gallery/qual_b.png" alt="Qualitative reasoning example" />
-          <figcaption>Reasoning-informed prompts — idioms and world knowledge.</figcaption>
+          <img src="images/gallery/ba_2.png" alt="Reasoning: Base vs SRUM" />
+          <figcaption>Reasoning — “a piece of cake”.</figcaption>
         </figure>
         <figure>
-          <img src="images/gallery/qual_c.png" alt="Qualitative comparison example" />
-          <figcaption>Side-by-side improvements after self-rewarding.</figcaption>
+          <img src="images/gallery/ba_3.png" alt="Compositional: Base vs SRUM" />
+          <figcaption>Compositional — seven books.</figcaption>
         </figure>
       </div>
-      <div class="grid-2" style="margin-top:0.9rem">
+      <figure class="figure" style="margin-top:0.9rem">
+        <img src="images/gallery/gap_pair.png" alt="Understanding correct vs generation wrong" />
+        <figcaption>
+          The gap SRUM targets: understanding marks “red banana on yellow apple” correctly,
+          while base generation still swaps the binding.
+        </figcaption>
+      </figure>
+      <h3 style="margin-top:1.4rem">Analysis charts</h3>
+      <div class="grid-2" style="margin-top:0.6rem">
         <figure class="figure" style="margin:0">
-          <img src="images/gallery/pipeline.png" alt="Pipeline / analysis figure" />
-          <figcaption>Supporting analysis figure from the paper materials.</figcaption>
+          <img src="images/gallery/pipeline.png" alt="Module evaluation / pipeline analysis" />
+          <figcaption>Module evaluation vs Base / SFT on CompBench.</figcaption>
         </figure>
         <figure class="figure" style="margin:0">
           <img src="images/gallery/ablation.png" alt="Ablation figure" />
-          <figcaption>Ablation / component study materials.</figcaption>
+          <figcaption>Think / method / global ablations over training steps.</figcaption>
         </figure>
       </div>
     </section>

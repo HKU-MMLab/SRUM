@@ -99,6 +99,13 @@ Defaults: **AdamW**, lr **2.5×10<sup>−5</sup>**, warmup **500**, grad clip **
 ## Results
 
 <p align="center">
+  <img width="920" alt="Base vs SRUM qualitative before/after." src="assets/before_after.png">
+</p>
+<p align="center">
+  <em>Same prompts — Base (before) vs SRUM (after): commonsense, idiom reasoning, counting.</em>
+</p>
+
+<p align="center">
   <img width="720" alt="SRUM quantitative results." src="docs/images/results.png">
 </p>
 

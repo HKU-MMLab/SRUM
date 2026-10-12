@@ -412,6 +412,23 @@ section > h2::after {
   object-fit: cover;
   background: #ddd;
 }
+.gallery.ba-gallery img {
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+  background: #fffaf7;
+}
+.ba-hero {
+  margin: 0 0 0.9rem;
+}
+.ba-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fffaf7;
+}
 .gallery figcaption {
   padding: 0.7rem 0.8rem 0.85rem;
   font-size: 0.86rem;
