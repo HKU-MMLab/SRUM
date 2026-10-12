@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SRUM | ECCV 2026</title>
+  <meta name="description" content="SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models (ECCV 2026)" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">ECCV 2026</p>
+      <h1>SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models</h1>
+      <p class="lede">
+        Let a unified model’s understanding module reward its own generation —
+        closing the understanding–generation gap without extra human labels.
+      </p>
+      <p class="authors">
+        Weiyang Jin*, Yuwei Niu*, Jiaqi Liao, Chengqi Duan, Aoxue Li, Shenghua Gao, Xihui Liu
+      </p>
+      <p class="affil">The University of Hong Kong</p>
+      <div class="cta">
+        <a class="btn" href="https://arxiv.org/abs/2510.12784">Paper</a>
+        <a class="btn" href="https://huggingface.co/Wayne-King/SRUM_BAGEL_7B_MoT">Model</a>
+        <a class="btn" href="https://github.com/HKU-MMLab/SRUM-ECCV2026">Code</a>
+        <a class="btn ghost" href="../paper/SRUM_ECCV2026_main.pdf">PDF</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Abstract</h2>
+      <p>
+        Remarkable progress has been made in Unified Multimodal Models (UMMs), which integrate
+        vision-language generation and understanding within a single framework. Yet a model’s
+        strong visual understanding often fails to transfer to visual generation. SRUM creates a
+        feedback loop where the model’s own understanding module acts as an internal evaluator,
+        providing corrective signals to improve generation without additional human-labeled data.
+        A global–local dual reward offers multi-scale guidance: a global reward for overall
+        semantics and layout, and a local reward for object-level fidelity. SRUM boosts
+        T2I-CompBench from 82.18 to 88.37 and T2I-ReasonBench from 43.82 to 46.75.
+      </p>
+    </section>
+
+    <section>
+      <h2>Method</h2>
+      <div class="cards">
+        <article>
+          <h3>01 · Understand</h3>
+          <p>Freeze the UMM understanding side as an offline evaluator (no evaluator gradients).</p>
+        </article>
+        <article>
+          <h3>02 · Dual reward</h3>
+          <p>Global score α gates a local region map R for multi-scale self-rewarding.</p>
+        </article>
+        <article>
+          <h3>03 · Improve generation</h3>
+          <p>Update generation / flow parameters with reward-weighted flow matching + reference constraint.</p>
+        </article>
+      </div>
+      <p class="note">
+        Offline recipe: ~6K candidates · AdamW · lr 2.5e-5 · warmup 500 · λ<sub>c</sub> = 0.5
+      </p>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <div class="tables">
+        <div>
+          <h3>Composition (overall)</h3>
+          <table>
+            <thead><tr><th>Model</th><th>Overall</th></tr></thead>
+            <tbody>
+              <tr><td>Bagel</td><td>82.18</td></tr>
+              <tr><td>Bagel (CoT)</td><td>84.46</td></tr>
+              <tr class="best"><td>Bagel+SRUM (CoT)</td><td>88.37</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Reasoning-informed</h3>
+          <table>
+            <thead><tr><th>Model</th><th>Average</th></tr></thead>
+            <tbody>
+              <tr><td>Bagel</td><td>43.82</td></tr>
+              <tr><td>Bagel+SFT</td><td>45.37</td></tr>
+              <tr class="best"><td>Bagel+SRUM</td><td>46.75</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Citation</h2>
+      <pre class="bib">@inproceedings{jin2026srum,
+  title     = {SRUM: Fine-Grained Self-Rewarding for Unified Multimodal Models},
+  author    = {Jin, Weiyang and Niu, Yuwei and Liao, Jiaqi and Duan, Chengqi
+               and Li, Aoxue and Gao, Shenghua and Liu, Xihui},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</pre>
+    </section>
+
+    <footer>
+      <p>Built with the BAGEL stack · Project page style inspired by RecA · HKU MMLab</p>
+    </footer>
+  </div>
+</body>
+</html>
