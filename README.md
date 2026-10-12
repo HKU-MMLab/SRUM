@@ -134,9 +134,9 @@ SRUM-ECCV2026/
 
 ## 📄 Paper
 
-- Main: [`paper/SRUM_ECCV2026_main.pdf`](./paper/SRUM_ECCV2026_main.pdf)
-- Supplementary: [`paper/SRUM_ECCV2026_supp.pdf`](./paper/SRUM_ECCV2026_supp.pdf)
 - arXiv: https://arxiv.org/abs/2510.12784
+- Local PDFs (also on [GitHub Release v0.1.0](https://github.com/HKU-MMLab/SRUM-ECCV2026/releases/tag/v0.1.0)): `paper/SRUM_ECCV2026_main.pdf`, `paper/SRUM_ECCV2026_supp.pdf`
+- Rebuttal notes: [`paper/rebuttal.tex`](./paper/rebuttal.tex)
 
 ## ✍️ Citation
 
